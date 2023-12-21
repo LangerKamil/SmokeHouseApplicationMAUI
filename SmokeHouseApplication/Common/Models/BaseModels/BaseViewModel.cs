@@ -1,13 +1,20 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SmokeHouseApplication.Common.Models.BaseModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public partial class BaseViewModel : ObservableObject
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region Fields
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(this.IsNotBussy))]
+        private bool isBussy;
 
-        public void OnPropertyChanged([CallerMemberName] string name = null) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        [ObservableProperty]
+        private string title;
+        #endregion
+
+        #region Properties
+        public bool IsNotBussy => !this.IsBussy;
+        #endregion
     }
 }
